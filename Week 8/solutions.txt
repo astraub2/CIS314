@@ -1,0 +1,38 @@
+5.15
+A. our regesters: %rax, %rbx, %rcx, %rdx, %xmm0, and %xmm1
+the instructions given:
+movss -> load operation
+mulss -> load the value and multiply
+addss -> add operation
+addq  -> add operation
+cmpq  -> comparison
+jl    -> jump if less than operation
+see image1 and image2 for a diagram of the operations
+B. (4+3)/3 = 7/3 = 2.33
+C. (3+1)/3 = 4/3 =1.33
+D.  the z=i*(i-1) instruction can have an overlap 
+problem with the * z from the last iteration
+
+5.16
+A. The inner product proceedure is bound by it's ability
+to load the current value into the regester and then preform
+a multiplication with the new value. This keeps the CPU
+from ever going below 2.
+
+5.17
+A. There are two limiting factors. The first is that there needs to
+be 2 loads per element to a register that can only hold
+one value per cycle. The second, a floating point multipication
+myst be preformed, but its regester can only do so once
+every 2 cycles.
+B. The write/read dependence of the integer data
+slows down the processing speed.
+
+4.
+I couldn't get my code to compile. Intuitively, I assume
+that the optomizations we did in part 2 and 3
+would make a more effecient program, and the difference
+between 2 and 3 will be small.
+
+
+

@@ -1,0 +1,163 @@
+##this was hard! I did my best
+
+.pos 0
+Init:
+    irmovl Stack, %ebp
+    irmovl Stack, %esp
+    
+.pos 0x100
+Stack:
+  .pos 0
+init: 
+    irmovl Stack, %esp    # Set up stack pointer  
+  irmovl Stack, %ebp    # Set up base pointer   
+  call Main   # Execute main program
+  halt
+  
+  # Terminate program 
+  .align 4 
+array:  
+    .long 0x3
+    .long 0x4
+    .long 0x2
+    .long 0x7
+    .long 0x4
+    .long 0x5
+    .long 0x1
+    .long 0x4
+    .long 0x5
+    .long 0x5
+    
+Main:
+    pushl %ebp 
+  rrmovl %esp,%ebp
+  irmovl $9,%edx      # edx = array length-1
+  rrmovl %edx, %edi   #edi is a copy of the counter
+  #I was having trouble getting the jne to work
+  irmovl array,%ecx   # ecx = array
+  
+  call Look
+  
+Outer_Loop:
+    #for your outer loop
+  #this executes array.length() times
+  #each time the counter for Look will -1
+  #edx is array length that will update
+  #edi will be number of iterations left
+  
+  rrmovl %esi, %edi   #reassign counter
+  irmovl $-1, %ebx
+  addl %ebx, %edi    #decrement counter
+  rrmovl %edi, %edx #decrement master counter
+  #if master counter is 0, end
+  andl %edx, %edx
+  je End
+  call Look
+  
+Add_back:
+    #for moving back to the start of the array
+    irmovl $4,%ebx
+    subl %ebx, %ecx #move back an element
+    irmovl $-1, %ebx
+    addl %ebx, %edi
+    
+    andl %edi, %edi
+    # repeat this as long as %edi>0
+    jg    Add_back 
+    #after it does so many shifts it skips back 
+    jmp Outer_Loop
+    
+    
+    
+
+Look:
+    irmovl $-1,%ebx         # 
+    rrmovl %edi, %esi       #perserve the counter
+  addl   %ebx,%edx        # Count--
+  andl   %edx,%edx
+  jl    Add_back             # Stop when 0
+    #if counter=0, end
+  ##this is the inner loop
+  mrmovl (%ecx),%esi      # %esi= first value in array
+  rrmovl %ecx, %eax       # 
+  irmovl $4,%ebx          # 
+  addl %ebx,%eax          # increment array (%eax)=next value
+  mrmovl (%eax), %eax     # !!%eax=next value!!
+  xorl %ebx, %ebx
+  rrmovl %eax, %ebx
+  subl %esi, %ebx
+  #check if value of second-first< 0
+  #if so swap values
+  andl %ebx, %ebx
+  
+  jl Swap
+  
+  #otherwise increment position in array 
+  #and check those values
+  irmovl $4,%ebx
+  addl %ebx, %ecx
+  jmp Look
+  
+    
+Swap:#swap values
+    #increment point in array
+    #this is where the elements get swapped
+    # swapping %esi(first) and %eax(second) in %ecx(array)
+    #dont use %edx (counter)
+    rrmovl %eax, %ebx
+    #set first element in array
+    rmmovl %eax, (%ecx)
+    #set second element in array
+    irmovl $4,%ebx
+    addl %ebx, %ecx #pointer moves forward 1 in array
+    rmmovl %esi, (%ecx)
+    jmp Look
+End:
+    #sorry this looks messy, but you can see the 
+    #sorted values in the stack this way
+    #1
+    mrmovl (%ecx), %eax
+    irmovl $4,%ebx
+    addl %ebx, %ecx
+    pushl %eax
+    #2
+    mrmovl (%ecx), %eax
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #3
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #4
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #5
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #6
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #7
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #8
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #9
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    #10
+    addl %ebx, %ecx
+    mrmovl (%ecx), %eax
+    pushl %eax
+    
+    rrmovl %ebp,%esp
+  popl %ebp
+  ret

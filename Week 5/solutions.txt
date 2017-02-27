@@ -1,0 +1,46 @@
+Problem 1
+A. x at %esi, n at %ebx, result at %edi, mask at %edx
+B. result=-1, mask=1
+C. mask!=0
+D. mask value is held in %edx, and is updated every time line 
+10 shifts it over n bits. 
+E. result updates:
+an AND is applied to mask and x, then result is
+XOR with result
+F.
+int loop(int x, int n){
+	int result=-1;
+	int mask;
+	for (mask=1; mask!=0; mask<<n)
+		result^=mask&x;
+	return result;
+
+Problem 2:
+A.13
+B.i=%ebi, j=%ecx
+
+Problem 4:
+
+function f
+pushq   %ebp
+movl	%ecx, 16(%ebp)
+movl	16(%ebp), %eax
+sall	$4, %eax
+popq	%rbp
+
+
+//I ran out of time on g
+//this is as far as I got
+function g
+pushq	%ebp
+pushq	%ebx
+movl %ecx, 16(%ebp)
+movl %edx, 16(%ebp)
+call f
+addl	%ecx, %eax
+addl	%edx, %eax
+
+
+
+
+

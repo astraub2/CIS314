@@ -1,0 +1,17 @@
+
+Problem 2
+without forwarding : 3
+example of data dependencey without forwarding
+we had an example in class, essentially because
+we cannot forward the data, we have to put a hold
+on the addl to wait for the %eax and %ebx values
+to be ready to use. We end up waiting 3 stalls 
+for the %ebx value to be freed up (%eax takes
+2, but not relevent to final answer)
+
+with forwarding : 0
+example of data dependency with forwarding
+unlike in the last example, forwarding alows us to 
+kind of cheat and grab values early, without stalls
+this alows us to grab ebx before is has passed all
+way through the pipeline, without waiting

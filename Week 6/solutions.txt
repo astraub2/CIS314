@@ -1,0 +1,84 @@
+Problem 1:
+____________________________________________________________________________________
+  0x0000:              | .pos 0
+  0x0000:              | Init:
+  0x0000: 30f500010000 |       irmovl Stack, %ebp
+  0x0006: 30f400010000 |       irmovl Stack, %esp
+                       |     
+  0x000c:              |       .pos 0x100
+  0x0100:              | Stack:
+                       | 	# Execution begins at address 0 
+  0x0100:              | 	.pos 0
+  0x0000: 30f400010000 | init:	irmovl Stack, %esp  	# Set up stack pointer  
+  0x0006: 30f500010000 | 	irmovl Stack, %ebp  	# Set up base pointer   
+  0x000c: 8012000000   | 	call Main		# Execute main program
+  0x0011: 00           | 	halt
+  0x0012:              | Main:	
+  0x0012: a05f         |     	pushl %ebp 
+  0x0014: 2045         | 	rrmovl %esp,%ebp
+  0x0016: 500508000000 | 	mrmovl 8(%ebp),%eax	#eax=int a
+                       | 	#irmovl $2, %eax #test code for input 2
+  0x001c: 8035000000   | 	call Bysixteen  #get new a
+                       | 	
+  0x0021: 2006         | 	rrmovl %eax,%esi #esi=new a
+  0x0023: 50050c000000 | 	mrmovl 12(%ebp),%eax #ecx=int b
+                       | 	#irmovl $3, %eax #test code for inout 3
+  0x0029: 8035000000   |     	call Bysixteen  #get new b
+  0x002e: 6060         |     	addl %esi, %eax #new a + new b
+  0x0030: 2054         |     	rrmovl %ebp,%esp
+  0x0032: b05f         | 	popl %ebp
+  0x0034: 90           | 	ret 
+                       |         
+  0x0035:              | Bysixteen:	
+  0x0035: a05f         |        pushl %ebp
+  0x0037: 2045         | 	rrmovl %esp,%ebp
+  0x0039: 2001         | 	rrmovl %eax,%ecx    # ecx=intitial value of input
+  0x003b: 30f210000000 | 	irmovl $16,%edx	    # edx = Count
+  0x0041: 6222         | 	andl   %edx,%edx	# Set condition codes
+  0x0043: 7357000000   | 	je     End
+  0x0048:              | Loop:
+                       | 
+  0x0048: 6010         |        addl %ecx, %eax         #add initial value to eax 16 times
+  0x004a: 30f3ffffffff | 	irmovl $-1,%ebx	        
+  0x0050: 6032         | 	addl %ebx,%edx          # Count--
+  0x0052: 7448000000   | 	jne    Loop             # Stop when 0
+  0x0057:              | End:	
+  0x0057: 2054         |        rrmovl %ebp,%esp
+  0x0059: b05f         | 	popl %ebp
+  0x005b: 90           | 	ret
+_________________________________________________________________________________________________
+
+Problem 2:
+See image attached, logic.jpg
+
+
+
+Problem 3:
+
+Fetch:
+Read instruction from instruction memory
+icode : ifun<-- M1[PC] //get next instruction
+valP <-- PC + 1		//to increment PC later
+
+Decode:
+Read program registers
+valB <-- R[%ebp] //read pointer and assign value
+
+Execute:
+Compute value or address
+valS <-- valB + 4 //sets stack pointer
+
+Memory:
+Read or write data
+valM <-- M4[valB] //sets valM to memory location of valB
+
+Write back:
+Write program registers
+R[%esp] <-- valS
+R[%ebp] <-- valM
+
+PC update:
+Update program counter
+PC <-- valP //increment PC
+
+

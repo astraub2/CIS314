@@ -1,0 +1,70 @@
+Chapter 6 stuff:
+Memory hiarchy:
+CPU (zero cycles)
+cache (1 to 10 cycles)
+main memory (50-200 cycles)
+disk (millions of cycles)
+Locality: Programs with good locality tend to access 
+  more data items from the upper levelsof the memory 
+  hierarchy than programs with poor locality, and thus
+  run faster.
+Static RAM (SRAM) is faster and significantly more 
+expensive than Dynamic RAM (DRAM).
+Static RAM (SRAM)
+Each cell stores a bit with a six-transistor circuit.
+Retains value indefinitely, as long as it is kept powered.
+Relatively insensitive to electrical noise (EMI), radiation, etc.
+Faster, less dense, and more expensive than DRAM.
+Dynamic RAM (DRAM)
+Each cell stores bit with a capacitor. One transistor is used for access
+Value must be refreshed every 10-100 ms.
+More sensitive to disturbances (EMI, radiation,…) than SRAM.
+Slower, more dense, and cheaper than SRAM.
+
+goes into details on DRAM
+
+Dram and SRAM are violital
+Nonviolatale mem. retain val if powered off
+ROM(Read ONly Memory), PROM(progamable once), EEPROM(Flash Memory
+can be re-written)
+
+Disk Memory
+platters, tracks, sectory
+
+SSD(solid state memory)
+	no moving parts , faster, less power
+	have the potential to wear out
+The key to bridging this CPU-Memory gap is a fundamental 
+property of computer programs known as locality
+
+. Programs that repeatedly reference the same variables 
+enjoy good temporal
+locality.
+. For programs with stride-k reference patterns, the smaller 
+the stride the better the spatial locality. Programs with 
+stride-1 reference patterns have good spatiallocality. 
+Programs that hop around memory with large strides have poor
+spatial locality.
+. Loops have good temporal and spatial locality with respect 
+to instruction fetches. The smaller the loop body and the 
+greater the number of loop iterations, the better the locality.
+
+Cache: A smaller, faster storage device that acts as a staging
+ area for a subset of the data in a larger, slower device.
+storage devices get slower, cheaper,
+and larger as we move from higher to lower levels
+each level in the hierarchy caches data objects from
+the next lower level
+general idea: data adress needed, if in cache, hit!
+	else, miss, data fetched from memory and now stored
+	in cache
+cache orginization(S,E,B)
+S: number of sets
+E: blocks per set
+B: bytes per set
+types fo cache with examples:
+direct mapped cache
+E-way set associative cache
+
+
+

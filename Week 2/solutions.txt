@@ -1,0 +1,30 @@
+Problem 3:
+-base 16 hex to base 2 convertion, I just used my knowlege of
+ binary values and 2s complement to calculate these values.
+a.1
+b.298
+c.-794
+d.-1
+
+Problem 4:
+Hex to decimal
+-sign calculated based on pos. or neg. value
+-after adding back hidden digit to matista, I found the exponent
+ value and used it to denomalize the matisa, then converted to 
+ decimal value
+a.0
+b.7.5
+c.9.125
+d.-314
+
+Problem 5:
+-sign calculated based on pos. or neg. value
+-exponent based on 2**normalizing shift then +31, 
+ converted to binary
+-matista is values after the binary dot following the
+ normalizing shift
+
+a.0 100000 000000000
+b.0 100010 000000000
+c.0 100010 001100000
+d.1 100101 010111001

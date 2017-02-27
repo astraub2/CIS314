@@ -1,0 +1,3 @@
+A. 16*16*16 in the array, cache holds half 2048
+B. 1 miss per inner loop 16 * 16 * 1 = 256
+C. 256 / 2048 = 1/8 = 12.5%
